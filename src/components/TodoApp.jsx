@@ -25,26 +25,10 @@ function LoginComponent(){
             console.log('Failure')
         }
     }
-    function ShowSuccessMessageComponent(){
-        if(showSuccessMessage){
-            return <div>Successful Authentication</div>
-        }
-        else{
-            return null
-        }
-    }
-    function ShowErrorMessageComponent(){
-        if(showErrorMessage){
-            return <div>Authentication Failed. Please try again</div>
-        }
-        else{
-            return null
-        }
-    }
     return(
         <div className="Login">
-            <ShowSuccessMessageComponent/>
-            <ShowErrorMessageComponent/>
+            {showSuccessMessage && <div>Successful Authentication</div>}
+            {showErrorMessage && <div>Authentication Failed. Please try again</div>}
             <div className="LoginForm">
                 <div>
                     <label>Username</label>
