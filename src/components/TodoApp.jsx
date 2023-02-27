@@ -1,10 +1,18 @@
 import './TodoApp.css'
 import {useState} from "react";
+import {BrowserRouter, Routes, Route, useNavigate} from "react-router-dom";
+
 export default function TodoApp(){
     return(
         <div className="TodoApp">
-            To-do Application
-            <LoginComponent/>
+            <BrowserRouter>
+                <Routes>
+                    <Route path='/' element={<LoginComponent/>}></Route>
+                    <Route path='/login' element={<LoginComponent/>}></Route>
+                    <Route path='/welcome' element={<WelcomeComponent/>}></Route>
+                </Routes>
+            </BrowserRouter>
+
         </div>
     )
 }
@@ -14,15 +22,15 @@ function LoginComponent(){
     const [password, setPassword] = useState('')
     const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const [showErrorMessage, setShowErrorMessage] = useState(false)
+    const navigate = useNavigate()
     function handleOnSubmit(){
         if(username === 'username' && password === 'password'){
             setShowSuccessMessage(true)
             setShowErrorMessage(false)
-            console.log('Success')
+            navigate('/welcome')
         }else{
             setShowSuccessMessage(false)
             setShowErrorMessage(true)
-            console.log('Failure')
         }
     }
     return(
@@ -42,6 +50,14 @@ function LoginComponent(){
                     <button type="button" name="login" onClick={handleOnSubmit}>Login</button>
                 </div>
             </div>
+        </div>
+    )
+}
+
+function WelcomeComponent(){
+    return(
+        <div>
+            Welcome to the Application
         </div>
     )
 }
