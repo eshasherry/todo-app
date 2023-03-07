@@ -7,10 +7,22 @@ export const useAuth = () => useContext(AuthContext)
 
 //2.share the created context with other components
 export default function AuthProvider({children}){
+    function login(username, password){
+        if(username === 'esha' && password === 'password'){
+            setAuthenticated(true)
+            return true
+        }else{
+            setAuthenticated(false)
+            return false
+        }
+    }
+    function logout(){
+        setAuthenticated(false)
+    }
     //3. put some state in auth provider
     const [isAuthenticated, setAuthenticated] = useState(false)
     return(
-        <AuthContext.Provider value={{isAuthenticated, setAuthenticated}}>
+        <AuthContext.Provider value={{isAuthenticated, login, logout}}>
             {children}
         </AuthContext.Provider>
     )

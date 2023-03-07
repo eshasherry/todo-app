@@ -5,25 +5,18 @@ import {useAuth} from "../security/AuthContext";
 export default function LoginComponent(){
     const [username, setUsername] = useState('username')
     const [password, setPassword] = useState('')
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false)
     const [showErrorMessage, setShowErrorMessage] = useState(false)
     const navigate = useNavigate()
     const authContext = useAuth()
     function handleOnSubmit(){
-        if(username === 'esha' && password === 'password'){
-            authContext.setAuthenticated(true)
-            setShowSuccessMessage(true)
-            setShowErrorMessage(false)
+        if(authContext.login(username, password)){
             navigate(`/welcome/${username}`)
         }else{
-            authContext.setAuthenticated(false)
-            setShowSuccessMessage(false)
             setShowErrorMessage(true)
         }
     }
     return(
         <div className="Login">
-            {showSuccessMessage && <div>Successful Authentication</div>}
             {showErrorMessage && <div>Authentication Failed. Please try again</div>}
             <div className="LoginForm">
                 <div>
