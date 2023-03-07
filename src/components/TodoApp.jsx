@@ -8,11 +8,13 @@ import WelcomeComponent from "./WelcomeComponent";
 import ListTodoComponent from "./ListTodoComponent";
 import ErrorComponent from "./ErrorComponent";
 import HeaderComponent from "./HeaderComponent";
+import AuthProvider from "../security/AuthContext";
 export default function TodoApp(){
     const [username, setUsername] = useState('username')
 
     return(
         <div className="TodoApp">
+            <AuthProvider>
                 <BrowserRouter>
                     <HeaderComponent/>
                     <Routes>
@@ -24,6 +26,7 @@ export default function TodoApp(){
                         <Route path='/logout' element={<LogoutComponent/>}></Route>
                     </Routes>
                 </BrowserRouter>
+            </AuthProvider>
         </div>
     )
 }
