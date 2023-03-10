@@ -6,3 +6,5 @@ const client = axios.create(
     }
 )
 export const getAllTodos = (username)=>client.get(`/${username}/todos`)
+
+export const deleteTodo = (id)=>client.delete(`/${id}/todo`)

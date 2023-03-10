@@ -1,6 +1,5 @@
-import {getAllTodos} from "../api/TodoServiceApi";
+import {deleteTodo, getAllTodos} from "../api/TodoServiceApi";
 import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
 import {useAuth} from "../security/AuthContext";
 
 
@@ -22,6 +21,13 @@ export default function ListTodoComponent(){
             })
             .catch((error) => console.log(error))
     }
+    function deleteThis(id){
+        deleteTodo(id)
+            .then(
+                ()=>{refreshTodos()
+            })
+            .catch((error) => console.log(error))
+    }
     return(
         <div className="container">
             <div>
@@ -35,6 +41,7 @@ export default function ListTodoComponent(){
                         <td>Description</td>
                         <td>Is Complete</td>
                         <td>Target Date</td>
+                        <td></td>
                     </tr>
                     </thead>
                     <tbody>
@@ -46,6 +53,7 @@ export default function ListTodoComponent(){
                                     <td>{todo.description}</td>
                                     <td>{todo.completed.toString()}</td>
                                     <td>{todo.targetDate}</td>
+                                    <td><button className="btn btn-danger" onClick={()=>deleteThis(todo.id)}>Delete</button></td>
                                 </tr>
                             )
                         )
