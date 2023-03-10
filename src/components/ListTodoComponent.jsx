@@ -7,6 +7,7 @@ export default function ListTodoComponent(){
     const [todos, setTodos] = useState([])
     const authContext = useAuth()
     const username = authContext.username
+    const [warningMessage, setWarningMessage] = useState(null)
     // useEffect - tell react that your component needs to do after render
     useEffect(
         () => {
@@ -17,7 +18,6 @@ export default function ListTodoComponent(){
         getAllTodos(username)
             .then((response) => {
                 setTodos(response.data)
-                console.log(username)
             })
             .catch((error) => console.log(error))
     }
@@ -25,14 +25,14 @@ export default function ListTodoComponent(){
         deleteTodo(id)
             .then(
                 ()=>{refreshTodos()
+                    setWarningMessage(`Your Task has been successfully deleted with id: ${id}`)
             })
             .catch((error) => console.log(error))
     }
     return(
         <div className="container">
-            <div>
-                <h2>List of all your Todos</h2>
-            </div>
+            <h2>List of all your Todos</h2>
+            {warningMessage && <div className="alert alert-warning">{warningMessage}</div>}
             <div>
                 <table className="table">
                     <thead>
