@@ -24,11 +24,16 @@ export default function TodoComponent(){
             })
             .catch(error=>console.log(error))
     }
+    function onSubmit(values){
+        console.log(values)
+    }
     return(
         <div>
             <h3>Update your Task</h3>
             <div>
-                <Formik initialValues={{description, targetDate}} enableReinitialize={true}>
+                <Formik initialValues={{description, targetDate}}
+                        enableReinitialize={true}
+                        onSubmit={onSubmit}>
                     {
                         (props)=>(
                             <Form>
@@ -40,6 +45,9 @@ export default function TodoComponent(){
                                     <label>Target Date</label>
                                     <Field type="date" className="form-control" name="targetDate"/>
                                 </fieldset>
+                                <div>
+                                    <button className="btn btn-primary m-5" type="submit">Save</button>
+                                </div>
                             </Form>
                         )
                     }
