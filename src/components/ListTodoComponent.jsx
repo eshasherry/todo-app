@@ -1,6 +1,7 @@
 import {deleteTodo, getAllTodos} from "../api/TodoServiceApi";
 import {useEffect, useState} from "react";
 import {useAuth} from "../security/AuthContext";
+import {useNavigate} from "react-router-dom";
 
 
 export default function ListTodoComponent(){
@@ -8,6 +9,7 @@ export default function ListTodoComponent(){
     const authContext = useAuth()
     const username = authContext.username
     const [warningMessage, setWarningMessage] = useState(null)
+    const navigate = useNavigate()
     // useEffect - tell react that your component needs to do after render
     useEffect(
         () => {
@@ -29,6 +31,9 @@ export default function ListTodoComponent(){
             })
             .catch((error) => console.log(error))
     }
+    function updateThis(id){
+        navigate(`/todo/${id}`)
+    }
     return(
         <div className="container">
             <h2>List of all your Todos</h2>
@@ -37,11 +42,12 @@ export default function ListTodoComponent(){
                 <table className="table">
                     <thead>
                     <tr>
-                        <td>ID</td>
-                        <td>Description</td>
-                        <td>Is Complete</td>
-                        <td>Target Date</td>
-                        <td></td>
+                        <th>ID</th>
+                        <th>Description</th>
+                        <th>Is Complete</th>
+                        <th>Target Date</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -54,6 +60,7 @@ export default function ListTodoComponent(){
                                     <td>{todo.completed.toString()}</td>
                                     <td>{todo.targetDate}</td>
                                     <td><button className="btn btn-danger" onClick={()=>deleteThis(todo.id)}>Delete</button></td>
+                                    <td><button className="btn btn-primary" onClick={()=>updateThis(todo.id)}>Update</button></td>
                                 </tr>
                             )
                         )
