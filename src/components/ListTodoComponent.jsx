@@ -34,6 +34,9 @@ export default function ListTodoComponent(){
     function updateThis(id){
         navigate(`/todo/${id}`)
     }
+    function addNew(){
+        navigate(`/todo/-1`)
+    }
     return(
         <div className="container">
             <h2>List of all your Todos</h2>
@@ -55,7 +58,6 @@ export default function ListTodoComponent(){
                         todos.map(
                             todo => (
                                 <tr key={todo.id}>
-                                    <td>{todo.id}</td>
                                     <td>{todo.description}</td>
                                     <td>{todo.completed.toString()}</td>
                                     <td>{todo.targetDate}</td>
@@ -67,6 +69,7 @@ export default function ListTodoComponent(){
                     }
                     </tbody>
                 </table>
+                <button className="btn btn-success" onClick={()=>addNew()}>Add Task</button>
             </div>
         </div>
     )
